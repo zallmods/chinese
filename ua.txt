@@ -1,0 +1,21 @@
+Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.8.10; 12PROMAX)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.8.6; 13PRO)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_2_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.2 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.8.10; 12PRO)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_0_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.8.10; 13PROMAX)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.8.10; 13)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_2_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.2 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.9.3; SE2)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 iPhone14,6 dmenubrowser(1.04.66)/iPhone/bioauth/DCMauthoption/
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) WebKit/8612 (KHTML, like Gecko) Mobile/19A346 [FBAN/FBIOS;FBDV/iPhone14,3;FBMD/iPhone;FBSN/iOS;FBSV/15.0;FBSS/3;FBID/phone;FBLC/it_IT;FBOP/5]
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) WebKit/8612 (KHTML, like Gecko) Mobile/19A346 [FBAN/FBIOS;FBDV/iPhone14,5;FBMD/iPhone;FBSN/iOS;FBSV/15.0;FBSS/3;FBID/phone;FBLC/it_IT;FBOP/5]
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) WebKit/8612 (KHTML, like Gecko) Mobile/19A341 [FBAN/FBIOS;FBDV/iPhone14,4;FBMD/iPhone;FBSN/iOS;FBSV/15.0;FBSS/3;FBID/phone;FBLC/ru_RU;FBOP/5]
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.8.10; 13MINI)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.8.6; 12MINI)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.6.3; XR)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.6.3; 12MINI)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.6.3; 12)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.6.3; 7)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_0_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.6.3; XS)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_0_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.6.3; XSMAX)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.6.3; 8)
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_0_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/605.1 NAVER(inapp; search; 1000; 11.6.3; 12PROMAX)
