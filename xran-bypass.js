@@ -111,7 +111,7 @@ const secureOptions =
  crypto.constants.SSL_OP_SINGLE_DH_USE |
  crypto.constants.SSL_OP_SINGLE_ECDH_USE |
  crypto.constants.SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION;
- if (process.argv.length < 7){console.log(`Usage: node xran-bypass.js <host> <time> <rps> <thread> <proxyfile>`); process.exit();}
+ if (process.argv.length < 7){console.log(`Usage: node xran-bypass [host] [time] [rps] [thread] [proxyfile]`); process.exit();}
  const secureProtocol = "TLS_method";
  const headers = {};
  
@@ -442,16 +442,6 @@ const origin = [
   "https://www.microsoft.com", "https://www.apple.com"
 ][Math.floor(Math.random() * 13)];
 
-function brutalString(minLength = 6, maxLength = 12) {
-    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_~!@$%^&*";
-    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
-    let str = "";
-    for (let i = 0; i < length; i++) {
-        str += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return str;
-}
-
 function generateLegitIP() {
     const asnData = [
         { asn: "AS15169", country: "US", ip: "8.8.8." },
@@ -503,22 +493,14 @@ function getRandomPath() {
     brave: {
         ":method": "GET",
         ":authority": Math.random() < 0.65 
-    ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
-    : (Math.random() < 0.4 
-        ? "www." 
-        : Math.random() < 0.3 
-            ? "cdn." 
-            : Math.random() < 0.2 
-                ? "img." 
-                : Math.random() < 0.1 
-                    ? "files." 
-                    : "static."
-      ) + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
-":scheme": "https",
-":path": parsedTarget.path + "?" 
-    + brutalString(4, 10) + "=" + brutalString(15, 25) + "&" 
-    + brutalString(4, 10) + "=" + brutalString(12, 22) + "&" 
-    + brutalString(3, 8) + "=" + brutalString(8, 18) + "&cb=" + Date.now(),
+            ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
+            : (Math.random() < 0.4 ? "www." : Math.random() < 0.3 ? "cdn." : Math.random() < 0.2 ? "img." : "static.") + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
+        ":scheme": "https",
+        ":path": parsedTarget.path + "?" + generateRandomString(6) + "=" + generateRandomString(12) +
+            "&" + generateRandomString(5) + "=" + generateRandomString(10, 18) +
+            "&" + generateRandomString(4) + "=" + generateRandomString(8, 16) +
+            "&cb=" + Date.now() +
+            "&session=" + generateRandomString(10),
 
         "sec-ch-ua": `"Brave";v="${Math.floor(123 + Math.random() * 2)}", "Chromium";v="${Math.floor(123 + Math.random() * 2)}", "Not A;Brand";v="99"`,
         "sec-ch-ua-mobile": Math.random() < 0.4 ? "?1" : "?0",
@@ -583,27 +565,29 @@ function getRandomPath() {
         "priority": `"u=0, i"`,
         "ect": ["2g", "3g", "4g", "5g"][Math.floor(Math.random() * 4)],
         "rtt": Math.floor(Math.random() * 500) + 50,
-        "downlink": (Math.random() * 10).toFixed(2)
+        "downlink": (Math.random() * 10).toFixed(2),
+
+        // Additional Realistic Elements for further Stealth:
+        "x-device-id": generateRandomString(32), // Mimicking device fingerprint
+        "x-session-id": generateRandomString(20), // Mimicking session-based behavior
+        "x-requested-with": "XMLHttpRequest", // Common in many AJAX requests
+
+        // Further TLS and WebRTC/Canvas spoofing as an option
+        "x-webgl-renderer": "WebKit WebGL", // Canvas/Rendering spoofing
+        "x-webgl-extensions": "EXT_texture_filter_anisotropic, EXT_blend_minmax", // Canvas/Rendering spoofing
+        "x-canvas-fingerprint": generateRandomString(16), // Canvas fingerprint spoof
     },
     chrome: {
     ":method": "GET",
     ":authority": Math.random() < 0.65 
-    ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
-    : (Math.random() < 0.4 
-        ? "www." 
-        : Math.random() < 0.3 
-            ? "cdn." 
-            : Math.random() < 0.2 
-                ? "img." 
-                : Math.random() < 0.1 
-                    ? "files." 
-                    : "static."
-      ) + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
-":scheme": "https",
-":path": parsedTarget.path + "?" 
-    + brutalString(4, 10) + "=" + brutalString(15, 25) + "&" 
-    + brutalString(4, 10) + "=" + brutalString(12, 22) + "&" 
-    + brutalString(3, 8) + "=" + brutalString(8, 18) + "&cb=" + Date.now(),
+            ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
+            : (Math.random() < 0.4 ? "www." : Math.random() < 0.3 ? "cdn." : Math.random() < 0.2 ? "img." : "static.") + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
+        ":scheme": "https",
+        ":path": parsedTarget.path + "?" + generateRandomString(6) + "=" + generateRandomString(12) +
+            "&" + generateRandomString(5) + "=" + generateRandomString(10, 18) +
+            "&" + generateRandomString(4) + "=" + generateRandomString(8, 16) +
+            "&cb=" + Date.now() +
+            "&session=" + generateRandomString(10),
 
     "sec-ch-ua": `"Google Chrome";v="${Math.floor(123 + Math.random() * 2)}", "Chromium";v="${Math.floor(123 + Math.random() * 2)}", "Not.A/Brand";v="99"`,
     "sec-ch-ua-mobile": Math.random() < 0.3 ? "?1" : "?0",
@@ -665,28 +649,30 @@ function getRandomPath() {
     "early-data": "1",
     "priority": `"u=0, i"`,
     "ect": ["2g", "3g", "4g", "5g"][Math.floor(Math.random() * 4)],
-    "rtt": Math.floor(Math.random() * 500) + 50,
-    "downlink": (Math.random() * 10).toFixed(2)
-},
+        "rtt": Math.floor(Math.random() * 500) + 50,
+        "downlink": (Math.random() * 10).toFixed(2),
+
+        // Additional Realistic Elements for further Stealth:
+        "x-device-id": generateRandomString(32), // Mimicking device fingerprint
+        "x-session-id": generateRandomString(20), // Mimicking session-based behavior
+        "x-requested-with": "XMLHttpRequest", // Common in many AJAX requests
+
+        // Further TLS and WebRTC/Canvas spoofing as an option
+        "x-webgl-renderer": "WebKit WebGL", // Canvas/Rendering spoofing
+        "x-webgl-extensions": "EXT_texture_filter_anisotropic, EXT_blend_minmax", // Canvas/Rendering spoofing
+        "x-canvas-fingerprint": generateRandomString(16), // Canvas fingerprint spoof
+    },
     safari: {
     ":method": "GET",
     ":authority": Math.random() < 0.65 
-    ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
-    : (Math.random() < 0.4 
-        ? "www." 
-        : Math.random() < 0.3 
-            ? "cdn." 
-            : Math.random() < 0.2 
-                ? "img." 
-                : Math.random() < 0.1 
-                    ? "files." 
-                    : "static."
-      ) + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
-":scheme": "https",
-":path": parsedTarget.path + "?" 
-    + brutalString(4, 10) + "=" + brutalString(15, 25) + "&" 
-    + brutalString(4, 10) + "=" + brutalString(12, 22) + "&" 
-    + brutalString(3, 8) + "=" + brutalString(8, 18) + "&cb=" + Date.now(),
+            ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
+            : (Math.random() < 0.4 ? "www." : Math.random() < 0.3 ? "cdn." : Math.random() < 0.2 ? "img." : "static.") + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
+        ":scheme": "https",
+        ":path": parsedTarget.path + "?" + generateRandomString(6) + "=" + generateRandomString(12) +
+            "&" + generateRandomString(5) + "=" + generateRandomString(10, 18) +
+            "&" + generateRandomString(4) + "=" + generateRandomString(8, 16) +
+            "&cb=" + Date.now() +
+            "&session=" + generateRandomString(10),
 
     "sec-ch-ua": `"Safari";v="${Math.floor(17 + Math.random() * 2)}", "Not A;Brand";v="99"`,
     "sec-ch-ua-mobile": Math.random() < 0.4 ? "?1" : "?0",
@@ -743,28 +729,30 @@ function getRandomPath() {
     "early-data": "1",
     "priority": `"u=0, i"`,
     "ect": ["2g", "3g", "4g", "5g"][Math.floor(Math.random() * 4)],
-    "rtt": Math.floor(Math.random() * 500) + 50,
-    "downlink": (Math.random() * 10).toFixed(2)
-},
+        "rtt": Math.floor(Math.random() * 500) + 50,
+        "downlink": (Math.random() * 10).toFixed(2),
+
+        // Additional Realistic Elements for further Stealth:
+        "x-device-id": generateRandomString(32), // Mimicking device fingerprint
+        "x-session-id": generateRandomString(20), // Mimicking session-based behavior
+        "x-requested-with": "XMLHttpRequest", // Common in many AJAX requests
+
+        // Further TLS and WebRTC/Canvas spoofing as an option
+        "x-webgl-renderer": "WebKit WebGL", // Canvas/Rendering spoofing
+        "x-webgl-extensions": "EXT_texture_filter_anisotropic, EXT_blend_minmax", // Canvas/Rendering spoofing
+        "x-canvas-fingerprint": generateRandomString(16), // Canvas fingerprint spoof
+    },
     mobile: {
     ":method": "GET",
     ":authority": Math.random() < 0.65 
-    ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
-    : (Math.random() < 0.4 
-        ? "www." 
-        : Math.random() < 0.3 
-            ? "cdn." 
-            : Math.random() < 0.2 
-                ? "img." 
-                : Math.random() < 0.1 
-                    ? "files." 
-                    : "static."
-      ) + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
-":scheme": "https",
-":path": parsedTarget.path + "?" 
-    + brutalString(4, 10) + "=" + brutalString(15, 25) + "&" 
-    + brutalString(4, 10) + "=" + brutalString(12, 22) + "&" 
-    + brutalString(3, 8) + "=" + brutalString(8, 18) + "&cb=" + Date.now(),
+            ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
+            : (Math.random() < 0.4 ? "www." : Math.random() < 0.3 ? "cdn." : Math.random() < 0.2 ? "img." : "static.") + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
+        ":scheme": "https",
+        ":path": parsedTarget.path + "?" + generateRandomString(6) + "=" + generateRandomString(12) +
+            "&" + generateRandomString(5) + "=" + generateRandomString(10, 18) +
+            "&" + generateRandomString(4) + "=" + generateRandomString(8, 16) +
+            "&cb=" + Date.now() +
+            "&session=" + generateRandomString(10),
 
     "sec-ch-ua": `"Google Chrome";v="${Math.floor(122 + Math.random() * 3)}", "Not(A:Brand";v="99"`,
     "sec-ch-ua-mobile": "?1",
@@ -820,28 +808,30 @@ function getRandomPath() {
     "early-data": "1",
     "priority": `"u=0, i"`,
     "ect": ["2g", "3g", "4g", "5g"][Math.floor(Math.random() * 4)],
-    "rtt": Math.floor(Math.random() * 500) + 50,
-    "downlink": (Math.random() * 10).toFixed(2)
-},
+        "rtt": Math.floor(Math.random() * 500) + 50,
+        "downlink": (Math.random() * 10).toFixed(2),
+
+        // Additional Realistic Elements for further Stealth:
+        "x-device-id": generateRandomString(32), // Mimicking device fingerprint
+        "x-session-id": generateRandomString(20), // Mimicking session-based behavior
+        "x-requested-with": "XMLHttpRequest", // Common in many AJAX requests
+
+        // Further TLS and WebRTC/Canvas spoofing as an option
+        "x-webgl-renderer": "WebKit WebGL", // Canvas/Rendering spoofing
+        "x-webgl-extensions": "EXT_texture_filter_anisotropic, EXT_blend_minmax", // Canvas/Rendering spoofing
+        "x-canvas-fingerprint": generateRandomString(16), // Canvas fingerprint spoof
+    },
     firefox: {
     ":method": "GET",
     ":authority": Math.random() < 0.65 
-    ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
-    : (Math.random() < 0.4 
-        ? "www." 
-        : Math.random() < 0.3 
-            ? "cdn." 
-            : Math.random() < 0.2 
-                ? "img." 
-                : Math.random() < 0.1 
-                    ? "files." 
-                    : "static."
-      ) + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
-":scheme": "https",
-":path": parsedTarget.path + "?" 
-    + brutalString(4, 10) + "=" + brutalString(15, 25) + "&" 
-    + brutalString(4, 10) + "=" + brutalString(12, 22) + "&" 
-    + brutalString(3, 8) + "=" + brutalString(8, 18) + "&cb=" + Date.now(),
+            ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
+            : (Math.random() < 0.4 ? "www." : Math.random() < 0.3 ? "cdn." : Math.random() < 0.2 ? "img." : "static.") + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
+        ":scheme": "https",
+        ":path": parsedTarget.path + "?" + generateRandomString(6) + "=" + generateRandomString(12) +
+            "&" + generateRandomString(5) + "=" + generateRandomString(10, 18) +
+            "&" + generateRandomString(4) + "=" + generateRandomString(8, 16) +
+            "&cb=" + Date.now() +
+            "&session=" + generateRandomString(10),
 
     "sec-ch-ua": `"Not A;Brand";v="99", "Mozilla Firefox";v="${Math.floor(124 + Math.random() * 2)}"`,
     "sec-ch-ua-mobile": Math.random() < 0.4 ? "?1" : "?0",
@@ -903,28 +893,30 @@ function getRandomPath() {
     "early-data": "1",
     "priority": `"u=0, i"`,
     "ect": ["2g", "3g", "4g", "5g"][Math.floor(Math.random() * 4)],
-    "rtt": Math.floor(Math.random() * 400) + 50,
-    "downlink": (Math.random() * 8 + 1).toFixed(2)
-},
+        "rtt": Math.floor(Math.random() * 500) + 50,
+        "downlink": (Math.random() * 10).toFixed(2),
+
+        // Additional Realistic Elements for further Stealth:
+        "x-device-id": generateRandomString(32), // Mimicking device fingerprint
+        "x-session-id": generateRandomString(20), // Mimicking session-based behavior
+        "x-requested-with": "XMLHttpRequest", // Common in many AJAX requests
+
+        // Further TLS and WebRTC/Canvas spoofing as an option
+        "x-webgl-renderer": "WebKit WebGL", // Canvas/Rendering spoofing
+        "x-webgl-extensions": "EXT_texture_filter_anisotropic, EXT_blend_minmax", // Canvas/Rendering spoofing
+        "x-canvas-fingerprint": generateRandomString(16), // Canvas fingerprint spoof
+    },
     opera: {
     ":method": "GET",
     ":authority": Math.random() < 0.65 
-    ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
-    : (Math.random() < 0.4 
-        ? "www." 
-        : Math.random() < 0.3 
-            ? "cdn." 
-            : Math.random() < 0.2 
-                ? "img." 
-                : Math.random() < 0.1 
-                    ? "files." 
-                    : "static."
-      ) + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
-":scheme": "https",
-":path": parsedTarget.path + "?" 
-    + brutalString(4, 10) + "=" + brutalString(15, 25) + "&" 
-    + brutalString(4, 10) + "=" + brutalString(12, 22) + "&" 
-    + brutalString(3, 8) + "=" + brutalString(8, 18) + "&cb=" + Date.now(),
+            ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
+            : (Math.random() < 0.4 ? "www." : Math.random() < 0.3 ? "cdn." : Math.random() < 0.2 ? "img." : "static.") + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
+        ":scheme": "https",
+        ":path": parsedTarget.path + "?" + generateRandomString(6) + "=" + generateRandomString(12) +
+            "&" + generateRandomString(5) + "=" + generateRandomString(10, 18) +
+            "&" + generateRandomString(4) + "=" + generateRandomString(8, 16) +
+            "&cb=" + Date.now() +
+            "&session=" + generateRandomString(10),
 
     "sec-ch-ua": `"Opera";v="${Math.floor(120 + Math.random() * 3)}", "Chromium";v="${Math.floor(122 + Math.random() * 3)}", "Not A;Brand";v="99"`,
     "sec-ch-ua-mobile": Math.random() < 0.4 ? "?1" : "?0",
@@ -986,28 +978,30 @@ function getRandomPath() {
     "early-data": "1",
     "priority": `"u=0, i"`,
     "ect": ["2g", "3g", "4g", "5g"][Math.floor(Math.random() * 4)],
-    "rtt": Math.floor(Math.random() * 400) + 50,
-    "downlink": (Math.random() * 8 + 1.5).toFixed(2)
-},
+        "rtt": Math.floor(Math.random() * 500) + 50,
+        "downlink": (Math.random() * 10).toFixed(2),
+
+        // Additional Realistic Elements for further Stealth:
+        "x-device-id": generateRandomString(32), // Mimicking device fingerprint
+        "x-session-id": generateRandomString(20), // Mimicking session-based behavior
+        "x-requested-with": "XMLHttpRequest", // Common in many AJAX requests
+
+        // Further TLS and WebRTC/Canvas spoofing as an option
+        "x-webgl-renderer": "WebKit WebGL", // Canvas/Rendering spoofing
+        "x-webgl-extensions": "EXT_texture_filter_anisotropic, EXT_blend_minmax", // Canvas/Rendering spoofing
+        "x-canvas-fingerprint": generateRandomString(16), // Canvas fingerprint spoof
+    },
     operagx: {
     ":method": "GET",
     ":authority": Math.random() < 0.65 
-    ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
-    : (Math.random() < 0.4 
-        ? "www." 
-        : Math.random() < 0.3 
-            ? "cdn." 
-            : Math.random() < 0.2 
-                ? "img." 
-                : Math.random() < 0.1 
-                    ? "files." 
-                    : "static."
-      ) + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
-":scheme": "https",
-":path": parsedTarget.path + "?" 
-    + brutalString(4, 10) + "=" + brutalString(15, 25) + "&" 
-    + brutalString(4, 10) + "=" + brutalString(12, 22) + "&" 
-    + brutalString(3, 8) + "=" + brutalString(8, 18) + "&cb=" + Date.now(),
+            ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
+            : (Math.random() < 0.4 ? "www." : Math.random() < 0.3 ? "cdn." : Math.random() < 0.2 ? "img." : "static.") + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
+        ":scheme": "https",
+        ":path": parsedTarget.path + "?" + generateRandomString(6) + "=" + generateRandomString(12) +
+            "&" + generateRandomString(5) + "=" + generateRandomString(10, 18) +
+            "&" + generateRandomString(4) + "=" + generateRandomString(8, 16) +
+            "&cb=" + Date.now() +
+            "&session=" + generateRandomString(10),
 
     "sec-ch-ua": `"Opera GX";v="${Math.floor(123 + Math.random() * 2)}", "Chromium";v="${Math.floor(123 + Math.random() * 2)}", "Not.A/Brand";v="99"`,
     "sec-ch-ua-mobile": Math.random() < 0.4 ? "?1" : "?0",
@@ -1069,28 +1063,30 @@ function getRandomPath() {
     "early-data": "1",
     "priority": `"u=0, i"`,
     "ect": ["2g", "3g", "4g", "5g"][Math.floor(Math.random() * 4)],
-    "rtt": Math.floor(Math.random() * 350) + 80,
-    "downlink": (Math.random() * 9 + 1).toFixed(2)
-},
+        "rtt": Math.floor(Math.random() * 500) + 50,
+        "downlink": (Math.random() * 10).toFixed(2),
+
+        // Additional Realistic Elements for further Stealth:
+        "x-device-id": generateRandomString(32), // Mimicking device fingerprint
+        "x-session-id": generateRandomString(20), // Mimicking session-based behavior
+        "x-requested-with": "XMLHttpRequest", // Common in many AJAX requests
+
+        // Further TLS and WebRTC/Canvas spoofing as an option
+        "x-webgl-renderer": "WebKit WebGL", // Canvas/Rendering spoofing
+        "x-webgl-extensions": "EXT_texture_filter_anisotropic, EXT_blend_minmax", // Canvas/Rendering spoofing
+        "x-canvas-fingerprint": generateRandomString(16), // Canvas fingerprint spoof
+    },
     duckduckgo: {
     ":method": "GET",
     ":authority": Math.random() < 0.65 
-    ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
-    : (Math.random() < 0.4 
-        ? "www." 
-        : Math.random() < 0.3 
-            ? "cdn." 
-            : Math.random() < 0.2 
-                ? "img." 
-                : Math.random() < 0.1 
-                    ? "files." 
-                    : "static."
-      ) + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
-":scheme": "https",
-":path": parsedTarget.path + "?" 
-    + brutalString(4, 10) + "=" + brutalString(15, 25) + "&" 
-    + brutalString(4, 10) + "=" + brutalString(12, 22) + "&" 
-    + brutalString(3, 8) + "=" + brutalString(8, 18) + "&cb=" + Date.now(),
+            ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
+            : (Math.random() < 0.4 ? "www." : Math.random() < 0.3 ? "cdn." : Math.random() < 0.2 ? "img." : "static.") + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
+        ":scheme": "https",
+        ":path": parsedTarget.path + "?" + generateRandomString(6) + "=" + generateRandomString(12) +
+            "&" + generateRandomString(5) + "=" + generateRandomString(10, 18) +
+            "&" + generateRandomString(4) + "=" + generateRandomString(8, 16) +
+            "&cb=" + Date.now() +
+            "&session=" + generateRandomString(10),
 
     "sec-ch-ua": `"DuckDuckGo";v="${Math.floor(123 + Math.random() * 3)}", "Chromium";v="${Math.floor(123 + Math.random() * 3)}", "Not.A/Brand";v="8"`,
     "sec-ch-ua-mobile": Math.random() < 0.4 ? "?1" : "?0",
@@ -1152,9 +1148,19 @@ function getRandomPath() {
     "early-data": "1",
     "priority": `"u=0, i"`,
     "ect": ["2g", "3g", "4g", "5g"][Math.floor(Math.random() * 4)],
-    "rtt": Math.floor(Math.random() * 500) + 50,
-    "downlink": (Math.random() * 10).toFixed(2)
-}
+        "rtt": Math.floor(Math.random() * 500) + 50,
+        "downlink": (Math.random() * 10).toFixed(2),
+
+        // Additional Realistic Elements for further Stealth:
+        "x-device-id": generateRandomString(32), // Mimicking device fingerprint
+        "x-session-id": generateRandomString(20), // Mimicking session-based behavior
+        "x-requested-with": "XMLHttpRequest", // Common in many AJAX requests
+
+        // Further TLS and WebRTC/Canvas spoofing as an option
+        "x-webgl-renderer": "WebKit WebGL", // Canvas/Rendering spoofing
+        "x-webgl-extensions": "EXT_texture_filter_anisotropic, EXT_blend_minmax", // Canvas/Rendering spoofing
+        "x-canvas-fingerprint": generateRandomString(16), // Canvas fingerprint spoof
+    },
 };
 
     return headersMap[browser];
