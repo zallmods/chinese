@@ -1,3 +1,13 @@
+198.23.239.134:6540:qvjnfhpe:cpmldtp23psx
+207.244.217.165:6712:qvjnfhpe:cpmldtp23psx
+107.172.163.27:6543:qvjnfhpe:cpmldtp23psx
+161.123.152.115:6360:qvjnfhpe:cpmldtp23psx
+23.94.138.75:6349:qvjnfhpe:cpmldtp23psx
+216.10.27.159:6837:qvjnfhpe:cpmldtp23psx
+136.0.207.84:6661:qvjnfhpe:cpmldtp23psx
+64.64.118.149:6732:qvjnfhpe:cpmldtp23psx
+142.147.128.93:6593:qvjnfhpe:cpmldtp23psx
+154.36.110.199:6853:qvjnfhpe:cpmldtp23psx
 198.23.239.134:6540:kkkkjfmz:a2zgtmhfy2bu
 207.244.217.165:6712:kkkkjfmz:a2zgtmhfy2bu
 107.172.163.27:6543:kkkkjfmz:a2zgtmhfy2bu
