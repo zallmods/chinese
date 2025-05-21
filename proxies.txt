@@ -1,3 +1,13 @@
+198.23.239.134:6540:qtbqdhnh:arndt6qeg4jz
+207.244.217.165:6712:qtbqdhnh:arndt6qeg4jz
+107.172.163.27:6543:qtbqdhnh:arndt6qeg4jz
+161.123.152.115:6360:qtbqdhnh:arndt6qeg4jz
+23.94.138.75:6349:qtbqdhnh:arndt6qeg4jz
+216.10.27.159:6837:qtbqdhnh:arndt6qeg4jz
+136.0.207.84:6661:qtbqdhnh:arndt6qeg4jz
+64.64.118.149:6732:qtbqdhnh:arndt6qeg4jz
+142.147.128.93:6593:qtbqdhnh:arndt6qeg4jz
+154.36.110.199:6853:qtbqdhnh:arndt6qeg4jz
 198.23.239.134:6540:tplrfamj:s7kht5p0u10r
 207.244.217.165:6712:tplrfamj:s7kht5p0u10r
 107.172.163.27:6543:tplrfamj:s7kht5p0u10r
